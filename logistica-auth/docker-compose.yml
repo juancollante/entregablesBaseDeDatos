@@ -1,0 +1,30 @@
+# Backend + PostgreSQL (requisito tipo Render + Docker Compose).
+# Uso: desde esta carpeta → docker compose up --build
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: logistica
+      POSTGRES_PASSWORD: logistica
+      POSTGRES_DB: logistica_auth
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U logistica -d logistica_auth"]
+      interval: 3s
+      timeout: 5s
+      retries: 15
+
+  logistica-auth:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/logistica_auth
+      SPRING_DATASOURCE_USERNAME: logistica
+      SPRING_DATASOURCE_PASSWORD: logistica
+      # Secreto JWT (≥ 32 caracteres). En nube usar secretos del proveedor, no valores fijos.
+      APP_JWT_SECRET: "${APP_JWT_SECRET:-docker-dev-change-me-use-long-random-secret-32b!}"
+    depends_on:
+      postgres:
+        condition: service_healthy
