@@ -1,6 +1,9 @@
-# Entregables Base de Datos
+# Entregables FE BD
 
-En esta carpeta (`Entregables_Base_Datos`) se encuentra el documento que contiene los productos entregables para el Sprint 1 de Fábrica Escuela, correspondiente al curso de Bases de Datos.
+## Modelo Físico
 
-Archivo incluido:
-- `Modelo_Envios.pdf`
+Profe el archivo SQL File TL 001 es un pequeño borrador de adelanto.
+Igualmente está también incluído en el archivo general MF Tracking Logístico junto con MF Diagram.
+
+No se modeló la relación entre usuarios y envíos en Sprint 1 porque las historias de usuario no exigen trazabilidad del creador.
+Esta relación se incorporará en Sprint 2 junto con la auditoría del sistema.
