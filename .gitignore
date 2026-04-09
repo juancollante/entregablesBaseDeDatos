@@ -1,0 +1,12 @@
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Repositories anidados
+logistica-envios/
+
+# OS
+.DS_Store
+Thumbs.db
