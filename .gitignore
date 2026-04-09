@@ -4,9 +4,6 @@
 *.swp
 *.swo
 
-# Repositories anidados (solo en raíz)
-/logistica-envios/
-
 # OS
 .DS_Store
 Thumbs.db

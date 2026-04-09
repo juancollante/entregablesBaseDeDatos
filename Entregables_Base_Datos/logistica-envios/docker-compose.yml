@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: logistica
+      POSTGRES_PASSWORD: logistica
+      POSTGRES_DB: logistica_envios
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U logistica -d logistica_envios"]
+      interval: 3s
+      timeout: 5s
+      retries: 15
+
+  logistica-envios:
+    build: .
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/logistica_envios
+      SPRING_DATASOURCE_USERNAME: logistica
+      SPRING_DATASOURCE_PASSWORD: logistica
+      APP_JWT_SECRET: "${APP_JWT_SECRET:-30CB2BC0F0F0DDE92B2CC1E9A06B3734}"
+    depends_on:
+      postgres:
+        condition: service_healthy
