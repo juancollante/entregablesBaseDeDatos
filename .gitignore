@@ -4,8 +4,8 @@
 *.swp
 *.swo
 
-# Repositories anidados
-logistica-envios/
+# Repositories anidados (solo en raíz)
+/logistica-envios/
 
 # OS
 .DS_Store
