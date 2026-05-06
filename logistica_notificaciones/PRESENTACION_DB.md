@@ -17,11 +17,11 @@
 - **Tecnología principal:** PostgreSQL (DB relacional), uso de tipos `JSONB` para payloads y `UUID` para claves primarias.
 - **Migraciones:** Administradas con Flyway mediante scripts en `classpath:db/migration`.
 - **Archivos relevantes:** Migraciones y configuración:
-  - [src/main/resources/db/migration/V1__notificaciones_schema.sql](src/main/resources/db/migration/V1__notificaciones_schema.sql#L1-L200)
-  - [src/main/resources/db/migration/V2__seed_plantillas.sql](src/main/resources/db/migration/V2__seed_plantillas.sql#L1-L200)
-  - [src/main/resources/db/migration/V3__preferencias_usuario_unique.sql](src/main/resources/db/migration/V3__preferencias_usuario_unique.sql#L1-L200)
-  - [src/main/resources/db/migration/V4__seed_plantilla_auth_login.sql](src/main/resources/db/migration/V4__seed_plantilla_auth_login.sql#L1-L200)
-  - [src/main/resources/application.properties](src/main/resources/application.properties#L1-L60)
+  - [src/main/resources/db/migration/V1__notificaciones_schema.sql](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/db/migration/V1__notificaciones_schema.sql#L1-L200)
+  - [src/main/resources/db/migration/V2__seed_plantillas.sql](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/db/migration/V2__seed_plantillas.sql#L1-L200)
+  - [src/main/resources/db/migration/V3__preferencias_usuario_unique.sql](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/db/migration/V3__preferencias_usuario_unique.sql#L1-L200)
+  - [src/main/resources/db/migration/V4__seed_plantilla_auth_login.sql](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/db/migration/V4__seed_plantilla_auth_login.sql#L1-L200)
+  - [src/main/resources/application.properties](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/application.properties#L1-L60)
 
 ## Flujo de migraciones
 
@@ -39,7 +39,7 @@
 - **Columnas clave:** `id` (UUID PK, `gen_random_uuid()`), `codigo` (UNIQUE), `asunto`, `cuerpo`, `activo`, `updated_at`.
 - **Observación:** Contiene plantillas semilla insertadas en V2/V4.
 
-Ver: [V1__notificaciones_schema.sql](src/main/resources/db/migration/V1__notificaciones_schema.sql#L1-L30) y [V2__seed_plantillas.sql](src/main/resources/db/migration/V2__seed_plantillas.sql#L1-L40).
+Ver: [V1__notificaciones_schema.sql](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/db/migration/V1__notificaciones_schema.sql#L1-L30) y [V2__seed_plantillas.sql](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/db/migration/V2__seed_plantillas.sql#L1-L40).
 
 ### `notificaciones`
 - **Función:** Registra cada notificación enviada o en cola.
@@ -47,28 +47,28 @@ Ver: [V1__notificaciones_schema.sql](src/main/resources/db/migration/V1__notific
 - **Relaciones:** FK con `plantilla_notificacion`.
 - **Índices:** `idx_notif_estado`, `idx_notif_guia`, `idx_notif_created`.
 
-Ver: [V1__notificaciones_schema.sql](src/main/resources/db/migration/V1__notificaciones_schema.sql#L8-L40).
+Ver: [V1__notificaciones_schema.sql](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/db/migration/V1__notificaciones_schema.sql#L8-L40).
 
 ### `preferencias_notificaciones`
 - **Función:** Guarda preferencias por usuario (qué eventos quiere recibir y por qué canal).
 - **Columnas clave:** `id` (UUID PK), `usuario_id_externo` (UUID opcional), `email`, `codigo_evento`, `canal`, `activo`, `updated_at`.
 - **Restricciones/índices:** `UNIQUE (email, codigo_evento, canal)` y el índice condicional `uq_pref_usuario_evento_canal` cuando `usuario_id_externo IS NOT NULL`.
 
-Ver: [V1__notificaciones_schema.sql](src/main/resources/db/migration/V1__notificaciones_schema.sql#L40-L70) y [V3__preferencias_usuario_unique.sql](src/main/resources/db/migration/V3__preferencias_usuario_unique.sql#L1-L20).
+Ver: [V1__notificaciones_schema.sql](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/db/migration/V1__notificaciones_schema.sql#L40-L70) y [V3__preferencias_usuario_unique.sql](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/db/migration/V3__preferencias_usuario_unique.sql#L1-L20).
 
 ### `consumo_eventos`
 - **Función:** Registro de consumo de eventos entrantes (para idempotencia y seguimiento del offset en Kafka).
 - **Columnas clave:** `id` (UUID PK), `idempotency_key` (UNIQUE), `topic`, `partition_id`, `offset_val`, `procesado_en`.
 - **Uso:** Evita procesar dos veces el mismo evento; almacena partición/offset.
 
-Ver: [V1__notificaciones_schema.sql](src/main/resources/db/migration/V1__notificaciones_schema.sql#L70-L95).
+Ver: [V1__notificaciones_schema.sql](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/db/migration/V1__notificaciones_schema.sql#L70-L95).
 
 ### `log_auditoria_notificaciones`
 - **Función:** Historial/auditoría de acciones relacionadas con `notificaciones`.
 - **Columnas clave:** `id` (UUID PK), `notificacion_id` (FK → `notificaciones.id` con `ON DELETE CASCADE`), `nivel`, `mensaje`, `metadata` (`JSONB`), `created_at`.
 - **Uso:** Trazabilidad y diagnóstico; borrado en cascada al eliminar notificaciones.
 
-Ver: [V1__notificaciones_schema.sql](src/main/resources/db/migration/V1__notificaciones_schema.sql#L95-L120).
+Ver: [V1__notificaciones_schema.sql](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/db/migration/V1__notificaciones_schema.sql#L95-L120).
 
 ## Índices y restricciones importantes
 
@@ -92,14 +92,14 @@ Ver: [V1__notificaciones_schema.sql](src/main/resources/db/migration/V1__notific
 - **Plantillas iniciales:** Insertadas por `V2__seed_plantillas.sql` (`SHIPMENT_CREATED`, `TRACKING_EVENT_REGISTERED`, `GENERICA`) y `V4__seed_plantilla_auth_login.sql` (`AUTH_LOGIN`).
 - **Idempotencia en seeds:** `ON CONFLICT (codigo) DO NOTHING` para evitar duplicados en ejecuciones repetidas.
 
-Ver: [V2__seed_plantillas.sql](src/main/resources/db/migration/V2__seed_plantillas.sql#L1-L40) y [V4__seed_plantilla_auth_login.sql](src/main/resources/db/migration/V4__seed_plantilla_auth_login.sql#L1-L40).
+Ver: [V2__seed_plantillas.sql](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/db/migration/V2__seed_plantillas.sql#L1-L40) y [V4__seed_plantilla_auth_login.sql](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/db/migration/V4__seed_plantilla_auth_login.sql#L1-L40).
 
 ## Configuración de conexión y comportamiento JPA
 
 - **Datasource (Postgres):**
   - `spring.datasource.url` por defecto `jdbc:postgresql://localhost:5432/logistica_notificaciones`.
   - Usuario/clave configurables por variables de entorno.
-  - Ver: [src/main/resources/application.properties](src/main/resources/application.properties#L1-L20).
+  - Ver: [src/main/resources/application.properties](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/application.properties#L1-L20).
 - **JPA / Flyway:**
   - `spring.jpa.hibernate.ddl-auto=validate` — la app valida esquema contra entidades JPA.
   - `spring.flyway.enabled=true` — Flyway aplica migraciones.
@@ -119,11 +119,11 @@ Ver: [V2__seed_plantillas.sql](src/main/resources/db/migration/V2__seed_plantill
 
 ## Anexo — ubicación de archivos
 
-- [src/main/resources/db/migration/V1__notificaciones_schema.sql](src/main/resources/db/migration/V1__notificaciones_schema.sql#L1-L200)
-- [src/main/resources/db/migration/V2__seed_plantillas.sql](src/main/resources/db/migration/V2__seed_plantillas.sql#L1-L200)
-- [src/main/resources/db/migration/V3__preferencias_usuario_unique.sql](src/main/resources/db/migration/V3__preferencias_usuario_unique.sql#L1-L200)
-- [src/main/resources/db/migration/V4__seed_plantilla_auth_login.sql](src/main/resources/db/migration/V4__seed_plantilla_auth_login.sql#L1-L200)
-- [src/main/resources/application.properties](src/main/resources/application.properties#L1-L60)
+- [src/main/resources/db/migration/V1__notificaciones_schema.sql](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/db/migration/V1__notificaciones_schema.sql#L1-L200)
+- [src/main/resources/db/migration/V2__seed_plantillas.sql](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/db/migration/V2__seed_plantillas.sql#L1-L200)
+- [src/main/resources/db/migration/V3__preferencias_usuario_unique.sql](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/db/migration/V3__preferencias_usuario_unique.sql#L1-L200)
+- [src/main/resources/db/migration/V4__seed_plantilla_auth_login.sql](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/db/migration/V4__seed_plantilla_auth_login.sql#L1-L200)
+- [src/main/resources/application.properties](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/application.properties#L1-L60)
 
 ---
 
