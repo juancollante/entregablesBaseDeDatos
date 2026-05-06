@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: logistica_notificaciones
+      POSTGRES_USER: logistica
+      POSTGRES_PASSWORD: logistica
+    ports:
+      - "5434:5432"
+
+  app:
+    build: .
+    environment:
+      PORT: 8796
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/logistica_notificaciones
+      SPRING_DATASOURCE_USERNAME: logistica
+      SPRING_DATASOURCE_PASSWORD: logistica
+      KAFKA_BOOTSTRAP_SERVERS: host.docker.internal:9092
+      KAFKA_TOPIC: logistica.eventbus
+      WS_ALLOWED_ORIGINS: "*"
+    ports:
+      - "8796:8796"
+    depends_on:
+      - db
+
