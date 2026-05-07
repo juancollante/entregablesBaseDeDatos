@@ -1,5 +1,5 @@
 # entregablesBaseDeDatos Sprint 2
-Presentación de los Componentes de Base de Datos del microservicio logistica-notificaciones
+Presentación de los Componentes de Base de Datos del microservicio logistica_notificaciones
 
 Equipo: Grupo EAV06 — Curso: Bases de Datos y Laboratorio – Fabrica Escuela Profesor: Edison Alejandro Montoya Gomez
 
