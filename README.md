@@ -2,6 +2,7 @@
 Presentación de los Componentes de Base de Datos del microservicio logistica_notificaciones
 
 Equipo: Grupo EAV06. Juan Pablo Collante Dominguez. C.C 1019012461
+
 Curso: Bases de Datos y Laboratorio – Fabrica Escuela Profesor: Edison Alejandro Montoya Gomez
 
 Fecha: 06 de mayo de 2026
