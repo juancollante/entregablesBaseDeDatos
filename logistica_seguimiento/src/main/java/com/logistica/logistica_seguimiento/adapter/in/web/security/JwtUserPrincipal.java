@@ -1,0 +1,7 @@
+package com.logistica.logistica_seguimiento.adapter.in.web.security;
+
+import java.util.UUID;
+
+public record JwtUserPrincipal(UUID id, String email, String roleCode, String codigoSedeAsignada) {
+}
+
