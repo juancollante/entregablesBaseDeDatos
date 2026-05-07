@@ -1,8 +1,7 @@
 # Presentación de los Componentes de Base de Datos del Proyecto `logistica-notificaciones`
 
-**Equipo:** Grupo de estudiantes — Curso: Bases de Datos y Laboratorio
-
-**Profesor:** [Nombre del profesor]
+**Equipo:** Grupo EAV06 — Curso: Bases de Datos y Laboratorio – Fabrica Escuela
+**Profesor:** Edison Alejandro Montoya Gomez
 
 **Fecha:** 06 de mayo de 2026
 
