@@ -124,6 +124,3 @@ Ver: [V2__seed_plantillas.sql](https://github.com/juancollante/entregablesBaseDe
 - [src/main/resources/db/migration/V4__seed_plantilla_auth_login.sql](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/db/migration/V4__seed_plantilla_auth_login.sql#L1-L200)
 - [src/main/resources/application.properties](https://github.com/juancollante/entregablesBaseDeDatos/blob/main/logistica_notificaciones/src/main/resources/application.properties#L1-L60)
 
----
-
-¿Desean que convierta este Markdown a PDF o a una presentación PowerPoint?
